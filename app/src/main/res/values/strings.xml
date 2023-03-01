@@ -10,4 +10,10 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="error">Connot upload Product</string>
+
+    <string name="productName">Name of Product</string>
+    <string name="addButton">Add Product</string>
+    <string name="productDescription">Description</string>
+    <string name="action_list">List Products</string>
 </resources>

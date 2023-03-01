@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/ProductsFragment">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="ie.wit.shoppingapp.ui.home.HomeFragment"
+        android:id="@+id/ProductsFragment"
+        android:name="ie.wit.shoppingapp.ui.addProducts.ProductsFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_products" />
 
     <fragment
         android:id="@+id/nav_gallery"

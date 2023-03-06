@@ -16,4 +16,6 @@
     <string name="addButton">Add Product</string>
     <string name="productDescription">Description</string>
     <string name="action_list">List Products</string>
+
+    <string name="no_products">No Products</string>
 </resources>

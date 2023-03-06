@@ -9,17 +9,20 @@
         android:id="@+id/ProductsFragment"
         android:name="ie.wit.shoppingapp.ui.addProducts.ProductsFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_products" />
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_ProductsFragment_to_listProducts"
+            app:destination="@id/listProducts" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="ie.wit.shoppingapp.ui.gallery.GalleryFragment"
+        android:id="@+id/listProducts"
+        android:name="ie.wit.shoppingapp.ui.list.ListFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listProducts_to_ProductsFragment"
+            app:destination="@id/ProductsFragment" />
+    </fragment>
 
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="ie.wit.shoppingapp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
 </navigation>

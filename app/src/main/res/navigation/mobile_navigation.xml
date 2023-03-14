@@ -12,16 +12,18 @@
         tools:layout="@layout/fragment_products" >
         <action
             android:id="@+id/action_ProductsFragment_to_listProducts"
-            app:destination="@id/listProducts" />
+            app:destination="@id/listFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 
     <fragment
-        android:id="@+id/listProducts"
+        android:id="@+id/listFragment"
         android:name="ie.wit.shoppingapp.ui.list.ListFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_list" >
         <action
-            android:id="@+id/action_listProducts_to_ProductsFragment"
+            android:id="@+id/action_listFragment_to_ProductsFragment"
             app:destination="@id/ProductsFragment" />
     </fragment>
 

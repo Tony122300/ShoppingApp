@@ -1,10 +1,7 @@
 package ie.wit.shoppingapp.ui.list
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -15,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.adapter.ReportClickListener
 import ie.wit.shoppingapp.adapter.StoreAdapter
 
@@ -49,7 +47,7 @@ class ListFragment : Fragment(), ReportClickListener {
         })
         val fab: FloatingActionButton = binding.fab
         fab.setOnClickListener {
-            val action = ListFragmentDirections.actionListProductsToProductsFragment()
+            val action = ListFragmentDirections.actionListFragmentToProductsFragment()
             findNavController().navigate(action)
         }
         return root
@@ -71,8 +69,8 @@ class ListFragment : Fragment(), ReportClickListener {
         _binding = null
     }
     override fun onReportClick(products: StoreModel) {
-        val action = ListFragmentDirections.actionListProductsToProductsFragment()
-        findNavController().navigate(action)
+
+
     }
     override fun onResume() {
         super.onResume()
@@ -84,6 +82,11 @@ class ListFragment : Fragment(), ReportClickListener {
             ListFragment().apply {
                 arguments = Bundle().apply { }
             }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_list, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

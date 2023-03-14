@@ -3,7 +3,6 @@ package ie.wit.shoppingapp.ui.addProducts
 import android.os.Bundle
 import android.view.*
 import android.widget.DatePicker
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -28,23 +27,24 @@ class ProductsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         storeApp = StoreModel()
-        //app = activity?.application as DonationXApp
+        store = activity?.application as StoreApp
         setHasOptionsMenu(true)
         //navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
         val root = binding.root
         activity?.title = getString(R.string.addButton)
         productsViewModel = ViewModelProvider(this).get(ProductsViewModel::class.java)
-        productsViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
-                status -> status?.let { render(status) }
+        productsViewModel.observableStatus.observe(
+            viewLifecycleOwner,
+            Observer { status -> status?.let { render(status) }
         })
+
         val datePicker = view?.findViewById<DatePicker>(R.id.date_Picker)
         val today = Calendar.getInstance()
         if (datePicker != null) {
@@ -97,14 +97,13 @@ class ProductsFragment : Fragment() {
         }
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onResume() {
+        super.onResume()
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_store, menu)
+        inflater.inflate(R.menu.menu_add, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -120,7 +119,10 @@ class ProductsFragment : Fragment() {
                 arguments = Bundle().apply {}
             }
     }
-    override fun onResume() {
-        super.onResume()
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

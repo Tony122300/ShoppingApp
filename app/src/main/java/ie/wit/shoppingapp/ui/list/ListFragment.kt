@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.wit.shoppingapp.R
@@ -39,7 +40,7 @@ class ListFragment : Fragment(), ReportClickListener {
     ): View? {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val root = binding.root
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerView.layoutManager = GridLayoutManager(activity,2)
         listViewModel = ViewModelProvider(this).get(ListViewModel::class.java)
         listViewModel.observableProductsList.observe(viewLifecycleOwner, Observer {
                 products ->
@@ -69,7 +70,8 @@ class ListFragment : Fragment(), ReportClickListener {
         _binding = null
     }
     override fun onReportClick(products: StoreModel) {
-
+        val action = ListFragmentDirections.actionListFragmentToDetailsFragment(products.id)
+        findNavController().navigate(action)
 
     }
     override fun onResume() {

@@ -3,6 +3,7 @@ package ie.wit.shoppingapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.databinding.ActivityMainBinding
 import ie.wit.shoppingapp.databinding.HomeBinding
 import ie.wit.shoppingapp.models.StoreModel
@@ -31,8 +32,9 @@ interface ReportClickListener {
 
         inner class MainHolder(val binding: ActivityMainBinding) :
             RecyclerView.ViewHolder(binding.root) {
-
             fun bind(store: StoreModel, listener: ReportClickListener) {
+                binding.product = store
+                binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
                 binding.root.setOnClickListener { listener.onReportClick(store) }
             }
         }

@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.databinding.HomeBinding
+import ie.wit.shoppingapp.models.StoreJSONStore
 
 class Home : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
@@ -24,7 +25,7 @@ class Home : AppCompatActivity() {
         drawerLayout = homeBinding.drawerLayout
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-
+        StoreJSONStore.initialize(applicationContext)
         val navHostFragment = supportFragmentManager.
                 findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
         val navController = navHostFragment.navController
@@ -32,7 +33,7 @@ class Home : AppCompatActivity() {
         val navView = homeBinding.navView
         navView.setupWithNavController(navController)
 
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.ProductsFragment,R.id.listFragment), drawerLayout)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.ProductsFragment,R.id.listFragment,R.id.imageRecognitionFragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
     override fun onSupportNavigateUp(): Boolean {

@@ -3,6 +3,7 @@ package ie.wit.shoppingapp.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.databinding.ActivityMainBinding
 import ie.wit.shoppingapp.databinding.HomeBinding
@@ -34,7 +35,9 @@ interface ReportClickListener {
             RecyclerView.ViewHolder(binding.root) {
             fun bind(store: StoreModel, listener: ReportClickListener) {
                 binding.product = store
-                binding.imageIcon.setImageResource(R.mipmap.ic_launcher_round)
+                binding.name.text = store.productName
+                binding.price.text = store.price.toString()
+                Picasso.get().load(store.image).into(binding.productImage)
                 binding.root.setOnClickListener { listener.onReportClick(store) }
             }
         }

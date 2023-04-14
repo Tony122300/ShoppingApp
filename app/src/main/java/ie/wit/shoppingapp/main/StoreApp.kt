@@ -1,16 +1,19 @@
 package ie.wit.shoppingapp.main
 
 import android.app.Application
-import ie.wit.shoppingapp.models.StoreManager
+import ie.wit.shoppingapp.models.StoreJSONStore
+//import ie.wit.shoppingapp.models.StoreManager
 import ie.wit.shoppingapp.models.StoreStore
 import timber.log.Timber
 
 class StoreApp: Application() {
-    lateinit var stores: StoreManager
+    // lateinit var stores: StoreManager
+    lateinit var stores: StoreJSONStore
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        stores = StoreManager
+//        stores = StoreManager
+        stores = StoreJSONStore
         Timber.i("Store App started ")
     }
 }

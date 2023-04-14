@@ -1,15 +1,21 @@
 package ie.wit.shoppingapp.ui.addProducts
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.databinding.FragmentProductsBinding
 import ie.wit.shoppingapp.main.StoreApp
@@ -23,7 +29,6 @@ class ProductsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var productsViewModel: ProductsViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         storeApp = StoreModel()
@@ -31,7 +36,16 @@ class ProductsFragment : Fragment() {
         setHasOptionsMenu(true)
         //navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
     }
-
+    private val pickImageContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            result.data?.let { intent ->
+                intent.data?.let { uri ->
+                    storeApp.image = uri
+                    Picasso.get().load(uri).into(binding.productImage)
+                }
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +58,8 @@ class ProductsFragment : Fragment() {
             viewLifecycleOwner,
             Observer { status -> status?.let { render(status) }
         })
+        setButtonListener(binding)
+
 
         val datePicker = view?.findViewById<DatePicker>(R.id.date_Picker)
         val today = Calendar.getInstance()
@@ -57,7 +73,7 @@ class ProductsFragment : Fragment() {
                 Toast.makeText(requireContext(), "Selected date: $msg", Toast.LENGTH_SHORT).show()
             }
         }
-        setButtonListener(binding)
+
         return root
     }
 
@@ -65,22 +81,20 @@ class ProductsFragment : Fragment() {
         when (status) {
             true -> {
                 view?.let {
-                    //Uncomment this if you want to immediately return to Report
-                    //findNavController().popBackStack()
                 }
             }
             false -> Toast.makeText(context,getString(R.string.error), Toast.LENGTH_LONG).show()
         }
     }
 
-    fun setButtonListener(layout: FragmentProductsBinding){
+    private fun setButtonListener(layout: FragmentProductsBinding){
         layout.addButtom.setOnClickListener{
             val name = binding.ProductName.text.toString()
             val description = binding.ProductDescription.text.toString()
             if (name.isNotEmpty() && description.isNotEmpty()) {
                 val product = StoreModel(
                     productName = name,
-                    productDescription = description
+                    productDescription = description,
                 )
                 Snackbar.make(binding.root, "Product added successfully", Snackbar.LENGTH_LONG)
                     .show()
@@ -95,7 +109,11 @@ class ProductsFragment : Fragment() {
                 ).show()
             }
         }
+        binding.chooseImage.setOnClickListener {
+            pickImageContract.launch(Intent(Intent.ACTION_PICK).setType("image/*"))
+        }
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -119,6 +137,7 @@ class ProductsFragment : Fragment() {
                 arguments = Bundle().apply {}
             }
     }
+
 
 
     override fun onDestroyView() {

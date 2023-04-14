@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/ProductsFragment">
+    app:startDestination="@+id/imageRecognitionFragment">
 
     <fragment
         android:id="@+id/ProductsFragment"
@@ -15,6 +15,12 @@
             app:destination="@id/listFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_ProductsFragment_to_checkOutFragment"
+            app:destination="@id/CartFragment" />
+        <action
+            android:id="@+id/action_ProductsFragment_to_imageRecognitionFragment"
+            app:destination="@id/imageRecognitionFragment" />
     </fragment>
 
     <fragment
@@ -28,6 +34,12 @@
         <action
             android:id="@+id/action_listFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_checkOutFragment"
+            app:destination="@id/CartFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_imageRecognitionFragment"
+            app:destination="@id/imageRecognitionFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -37,5 +49,35 @@
     <argument
         android:name="productid"
         app:argType="long" />
+        <action
+            android:id="@+id/action_detailsFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CartFragment"
+        android:name="ie.wit.shoppingapp.ui.cart.CartFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_checkOutFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_checkOutFragment_to_ProductsFragment"
+            app:destination="@id/ProductsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageRecognitionFragment"
+        android:name="ie.wit.shoppingapp.ui.imageRecog.ImageRecognitionFragment"
+        android:label="fragment_recognition"
+        tools:layout="@layout/fragment_recognition" >
+        <action
+            android:id="@+id/action_imageRecognitionFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_imageRecognitionFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_imageRecognitionFragment_to_CartFragment"
+            app:destination="@id/CartFragment" />
     </fragment>
 </navigation>

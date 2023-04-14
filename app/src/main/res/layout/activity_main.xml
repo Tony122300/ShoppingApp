@@ -16,14 +16,12 @@
         android:layout_height="200dp"
         android:elevation="24dp">
 
-
         <ImageView
-            android:id="@+id/imageIcon"
+            android:id="@+id/productImage"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_marginStart="37.5dp"
-            android:contentDescription="@string/app_name"
-            app:srcCompat="@mipmap/ic_launcher_round" />
+            android:text="@string/product_image" />
 
         <TextView
             android:id="@+id/name"

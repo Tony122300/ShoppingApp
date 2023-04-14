@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.models.StoreModel
-
+// cart adapter
 class CartAdapter : ListAdapter<StoreModel, CartAdapter.CartViewHolder>(StoreModelDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {

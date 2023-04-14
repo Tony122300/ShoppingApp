@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.adapter.CartAdapter
 import ie.wit.shoppingapp.models.StoreModel
-
+//cart
 class CartFragment : Fragment() {
 
     private lateinit var cartViewModel: CartViewModel

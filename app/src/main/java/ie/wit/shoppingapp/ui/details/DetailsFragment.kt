@@ -20,7 +20,7 @@ import ie.wit.shoppingapp.models.StoreJSONStore
 import ie.wit.shoppingapp.models.StoreModel
 
 import ie.wit.shoppingapp.ui.cart.CartViewModel
-
+//detials fragment
 class DetailsFragment : Fragment() {
 
     companion object {

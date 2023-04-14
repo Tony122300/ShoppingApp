@@ -39,7 +39,7 @@ import java.nio.ByteOrder
 import kotlin.math.min
 
 
-
+// image recognition
 class ImageRecognitionFragment : Fragment() {
     private lateinit var confidence: TextView
     private lateinit var camera: Button

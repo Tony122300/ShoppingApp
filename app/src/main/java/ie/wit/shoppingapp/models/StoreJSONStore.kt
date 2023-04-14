@@ -13,7 +13,7 @@ import timber.log.Timber
 import java.lang.reflect.Type
 import java.nio.file.Files.exists
 import java.util.*
-
+//json storage
 const val JSON_FILE = "Store.JSON"
 val gsonBuilder: Gson = GsonBuilder().setPrettyPrinting()
     .registerTypeAdapter(Uri::class.java, UriParser())

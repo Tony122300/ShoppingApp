@@ -3,7 +3,7 @@ package ie.wit.shoppingapp.helperFiles
 import android.content.Context
 import timber.log.Timber
 import java.io.*
-
+// json storage
 fun write(context: Context, fileName: String, data: String) {
     try {
         val outputStreamWriter = OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE))

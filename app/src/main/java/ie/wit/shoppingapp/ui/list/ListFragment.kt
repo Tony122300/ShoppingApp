@@ -2,7 +2,9 @@ package ie.wit.shoppingapp.ui.list
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,6 +22,7 @@ import ie.wit.shoppingapp.adapter.StoreAdapter
 import ie.wit.shoppingapp.databinding.FragmentListBinding
 import ie.wit.shoppingapp.main.StoreApp
 import ie.wit.shoppingapp.models.StoreModel
+import ie.wit.shoppingapp.ui.imageRecog.ImageRecognitionFragmentDirections
 
 class ListFragment : Fragment(), ReportClickListener {
     lateinit var store : StoreApp
@@ -50,6 +53,24 @@ class ListFragment : Fragment(), ReportClickListener {
         fab.setOnClickListener {
             val action = ListFragmentDirections.actionListFragmentToProductsFragment()
             findNavController().navigate(action)
+
+        }
+        val button: Button = binding.button3
+        button.setOnClickListener {
+            val action2 = ListFragmentDirections.actionListFragmentToImageRecognitionFragment()
+            findNavController().navigate(action2)
+        }
+
+        val button4: Button = binding.button4
+        button4.setOnClickListener {
+            val action3 = ListFragmentDirections.actionListFragmentToBarcodeFragment()
+            findNavController().navigate(action3)
+        }
+
+        val button5: Button = binding.button5
+        button5.setOnClickListener {
+            val action4 = ListFragmentDirections.actionListFragmentToCheckOutFragment()
+            findNavController().navigate(action4)
         }
         return root
     }
@@ -65,6 +86,25 @@ class ListFragment : Fragment(), ReportClickListener {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val searchView = view.findViewById<SearchView>(R.id.searchView)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // Do nothing when the user submits the search query
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Update the filter and refresh the adapter when the user types a new search query
+                newText?.let {
+                    listViewModel.filterList(it)
+                }
+                return true
+            }
+        })
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -95,4 +135,6 @@ class ListFragment : Fragment(), ReportClickListener {
         return NavigationUI.onNavDestinationSelected(item,
             requireView().findNavController()) || super.onOptionsItemSelected(item)
     }
+
+
 }

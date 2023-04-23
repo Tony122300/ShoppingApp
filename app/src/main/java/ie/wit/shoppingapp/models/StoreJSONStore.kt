@@ -58,7 +58,10 @@ object StoreJSONStore : StoreStore {
         serialize()
     }
 
-
+        override fun findByCat(category: String): StoreModel? {
+        val foundcat: StoreModel? = products.find { it.category.equals(category, ignoreCase = true) }
+        return foundcat
+    }
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(products, listType)
         write(context, JSON_FILE, jsonString)

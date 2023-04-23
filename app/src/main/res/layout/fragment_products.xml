@@ -43,28 +43,81 @@
 
     <EditText
         android:id="@+id/ProductDescription"
-        android:layout_width="189dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="270dp"
+        android:layout_height="141dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/productDescription"
         android:inputType="text"
-        android:maxLength="25"
-        android:maxLines="1"
+        android:maxLength="500"
+        android:maxLines="30"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ProductName" />
+
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="151dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="84dp"
+        android:calendarViewShown="false"
+        android:hint="@string/price"
+        android:datePickerMode="spinner"
+        app:layout_constraintStart_toEndOf="@+id/ProductName"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <DatePicker
         android:id="@+id/date_Picker"
         android:layout_width="251dp"
         android:layout_height="87dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ProductDescription" />
+
+    <EditText
+        android:id="@+id/barcode"
+        android:layout_width="245dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="396dp"
+        android:hint="@string/barcode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/category"
+        android:layout_width="183dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="212dp"
+        android:layout_marginTop="448dp"
+        android:hint="@string/category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/asile"
+        android:layout_width="85dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="296dp"
+        android:layout_marginTop="144dp"
+        android:hint="@string/asile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/producer"
+        android:layout_width="173dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="448dp"
+        android:hint="@string/producer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/addButtom"
@@ -88,7 +141,7 @@
         android:id="@+id/chooseImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="120dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:text="@string/addImage"

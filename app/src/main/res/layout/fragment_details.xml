@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.details.DetailsFragment">
-    //detials fragment
+
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -21,7 +21,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/photo"
+                android:id="@+id/productImage"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
@@ -41,7 +41,7 @@
                 android:textColor="#000000"
                 android:textSize="24sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/photo" />
+                app:layout_constraintTop_toBottomOf="@id/productImage" />
 
 
             <TextView
@@ -50,23 +50,51 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:text="@string/price_format"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/product_name"
-                android:text="@string/price_format"
 
                 />
 
             <TextView
                 android:id="@+id/ProductDescription"
-                android:layout_width="379dp"
-                android:layout_height="241dp"
-                android:layout_margin="16dp"
-                android:layout_marginStart="92dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="377dp"
+                android:layout_height="223dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="description here"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/price" />
+                app:layout_constraintTop_toBottomOf="@+id/producer" />
 
+            <TextView
+                android:id="@+id/barcode"
+                android:layout_width="188dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="96dp"
+                android:layout_marginTop="48dp"
+                android:text="@string/barcode"
+                app:layout_constraintStart_toEndOf="@+id/price"
+                app:layout_constraintTop_toBottomOf="@+id/productImage" />
+
+            <TextView
+                android:id="@+id/asile"
+                android:layout_width="188dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="68dp"
+                android:text="@string/asile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productImage" />
+
+            <TextView
+                android:id="@+id/producer"
+                android:layout_width="188dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="68dp"
+                android:text="@string/producer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barcode" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.DatePicker
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -20,6 +19,8 @@ import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.databinding.FragmentProductsBinding
 import ie.wit.shoppingapp.main.StoreApp
 import ie.wit.shoppingapp.models.StoreModel
+import timber.log.Timber.Forest.i
+import java.io.File
 import java.util.*
 
 class ProductsFragment : Fragment() {
@@ -36,16 +37,7 @@ class ProductsFragment : Fragment() {
         setHasOptionsMenu(true)
         //navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
     }
-    private val pickImageContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == AppCompatActivity.RESULT_OK) {
-            result.data?.let { intent ->
-                intent.data?.let { uri ->
-                    storeApp.image = uri
-                    Picasso.get().load(uri).into(binding.productImage)
-                }
-            }
-        }
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -87,20 +79,49 @@ class ProductsFragment : Fragment() {
         }
     }
 
+    private val pickImageContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            result.data?.let { intent ->
+                intent.data?.let { uri ->
+                    storeApp.image = uri
+                    Picasso.get().load(uri).into(binding.productImage)
+                    }
+                }
+            }
+        }
     private fun setButtonListener(layout: FragmentProductsBinding){
         layout.addButtom.setOnClickListener{
             val name = binding.ProductName.text.toString()
             val description = binding.ProductDescription.text.toString()
+            val bestBeforeDate = binding.datePicker
+            val priceStr = binding.price.text.toString()
+            val price = if (priceStr.isNotEmpty()) priceStr.toDouble() else 0.0
+            val barcode = binding.barcode.text.toString()
+            val category = binding.category.text.toString()
+            val producer = binding.producer.text.toString()
+            val asile = binding.asile.text.toString().toInt()
             if (name.isNotEmpty() && description.isNotEmpty()) {
                 val product = StoreModel(
                     productName = name,
                     productDescription = description,
+                    bestBeforeDate = bestBeforeDate,
+                    price = price,
+                    image = storeApp.image, // Set the image for the product
+                    barcode = barcode,
+                    category = category,
+                    producer = producer,
+                    asile = asile
                 )
                 Snackbar.make(binding.root, "Product added successfully", Snackbar.LENGTH_LONG)
                     .show()
                 binding.ProductName.setText("")
                 binding.ProductDescription.setText("")
-                productsViewModel.addProduct(product)
+                binding.price.setText("")
+                binding.barcode.setText("")
+                productsViewModel.addProduct(product, store)
+
+                // Reset the image to empty after adding the product
+                storeApp.image = Uri.EMPTY
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -108,6 +129,7 @@ class ProductsFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+
         }
         binding.chooseImage.setOnClickListener {
             pickImageContract.launch(Intent(Intent.ACTION_PICK).setType("image/*"))
@@ -137,7 +159,6 @@ class ProductsFragment : Fragment() {
                 arguments = Bundle().apply {}
             }
     }
-
 
 
     override fun onDestroyView() {

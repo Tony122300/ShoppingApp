@@ -1,6 +1,8 @@
 package ie.wit.shoppingapp.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -9,9 +11,9 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.models.StoreModel
@@ -27,10 +29,18 @@ class CartAdapter : ListAdapter<StoreModel, CartAdapter.CartViewHolder>(StoreMod
         val product = getItem(position)
         holder.bind(product)
     }
+    fun deleteItem(position: Int) {
+        // Get the item being deleted
+        val deletedItem = getItem(position)
 
+        // Remove the item from the adapter
+        currentList.toMutableList().removeAt(position)
+        notifyItemRemoved(position)
+
+    }
     inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val productNameTextView: TextView = itemView.findViewById(R.id.productNameTextView)
-        private val productImageView: ImageView = itemView.findViewById(R.id.productImageView)
+        private val productImageView: ImageView = itemView.findViewById(R.id.productImage)
         private val quantitySpinner: Spinner = itemView.findViewById(R.id.quantitySpinner)
         private val deleteProductButton: ImageButton = itemView.findViewById(R.id.deleteProductButton)
         private val productTotalPriceTextView: TextView = itemView.findViewById(R.id.productTotalPriceTextView)
@@ -46,14 +56,13 @@ class CartAdapter : ListAdapter<StoreModel, CartAdapter.CartViewHolder>(StoreMod
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             quantitySpinner.adapter = adapter
 
-            // Set up delete button
-            deleteProductButton.setOnClickListener {
-                // TODO: Implement delete functionality
-            }
 
             // Calculate and set total price
             val totalPrice = product.price * quantitySpinner.selectedItem.toString().toInt()
             productTotalPriceTextView.text = itemView.context.getString(R.string.price_format, totalPrice)
+
+            // Delete product on button click
+
         }
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 import androidx.lifecycle.ViewModel
+import ie.wit.shoppingapp.main.StoreApp
 
 import ie.wit.shoppingapp.models.StoreModel
 //cart
@@ -12,6 +13,7 @@ import ie.wit.shoppingapp.models.StoreModel
 class CartViewModel : ViewModel() {
 
     private val productsInCart = mutableListOf<StoreModel>()
+
 
     fun addToCart(product: StoreModel) {
         productsInCart.add(product)

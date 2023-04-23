@@ -30,9 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="8dp"
-            android:text="Total: $ 26"
+            android:text="@string/price_format"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
+        <!-- Place order button -->
         <Button
             android:id="@+id/placeOrderButton"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
@@ -43,5 +44,31 @@
             android:text="Place Order"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
+
+        <TextView
+            android:id="@+id/success"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="successful"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/failed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="failed"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"/>
+
     </LinearLayout>
+
 </ScrollView>

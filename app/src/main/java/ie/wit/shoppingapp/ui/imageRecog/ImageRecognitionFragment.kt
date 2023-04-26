@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.ml.Model
 import ie.wit.shoppingapp.models.StoreJSONStore
@@ -48,6 +49,7 @@ class ImageRecognitionFragment : Fragment() {
     private lateinit var result: TextView
     private val imageSize = 224
     private var productList = listOf<StoreModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,6 +62,7 @@ class ImageRecognitionFragment : Fragment() {
         result = view.findViewById(R.id.result)
         imageView = view.findViewById(R.id.imageView)
         confidence = view.findViewById(R.id.confidencesText)
+
         camera.setOnClickListener {
             if (checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -74,10 +77,15 @@ class ImageRecognitionFragment : Fragment() {
             val cameraIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(cameraIntent, 1)
         }
+//        var isGallery = args.openGallery
+//        if(isGallery)
+//        {
+//            val cameraIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//            startActivityForResult(cameraIntent, 1)
+//        }
 
         return view
     }
-
 
     fun classifyImage(image: Bitmap) {
         try {
@@ -85,27 +93,24 @@ class ImageRecognitionFragment : Fragment() {
 
             // Creates inputs for reference.
             val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, imageSize, imageSize, 3), DataType.FLOAT32)
-            val byteBuffer = ByteBuffer.allocateDirect( 4 * imageSize * imageSize * 3)
-            byteBuffer.order(ByteOrder.nativeOrder())
 
-            byteBuffer.clear()
+            // Create a flattened array of RGB values from the bitmap image
+            val pixels = IntArray(imageSize * imageSize)
+            image.getPixels(pixels, 0, imageSize, 0, 0, imageSize, imageSize)
 
-            // get 1D array of 224 * 224 pixels in image
-            val intValues = IntArray(imageSize * imageSize)
-            image.getPixels(intValues, 0, image.width, 0, 0, image.width, image.height)
+            // Convert each pixel value to a normalized float value and add it to the input tensor buffer
+            // avoids iterating over each pixel and calling the ByteBuffer.putFloat() method for each RGB value.
 
-            // iterate over pixels and extract R, G, and B values. Add to bytebuffer.
-            var pixel = 0
-            for (i in 0 until imageSize) {
-                for (j in 0 until imageSize) {
-                    val `val` = intValues[pixel++] // RGB
-                    byteBuffer.putFloat(((`val` shr 16) and 0xFF) * (1f / 255f))
-                    byteBuffer.putFloat(((`val` shr 8) and 0xFF) * (1f / 255f))
-                    byteBuffer.putFloat((`val` and 0xFF) * (1f / 255f))
-                }
+            for (i in pixels.indices) {
+                val pixel = pixels[i]
+                val r = ((pixel shr 16) and 0xFF).toFloat() / 255.0f
+                val g = ((pixel shr 8) and 0xFF).toFloat() / 255.0f
+                val b = (pixel and 0xFF).toFloat() / 255.0f
+
+                inputFeature0.buffer.putFloat(r)
+                inputFeature0.buffer.putFloat(g)
+                inputFeature0.buffer.putFloat(b)
             }
-
-            inputFeature0.loadBuffer(byteBuffer)
 
             // Runs model inference and gets result.
             val outputs = model.process(inputFeature0)
@@ -121,7 +126,7 @@ class ImageRecognitionFragment : Fragment() {
                     maxPos = i
                 }
             }
-            val classes = arrayOf("Banana", "Orange", "Pen", "Sticky Notes")
+            val classes = arrayOf("Banana", "Pringles", "Quell Water", "7up", "RedBull","Milk","Fanta")
             result.text = classes[maxPos]
             // use the index to look up the corresponding product from your product list
             val recognizedProduct = classes[maxPos]
@@ -130,51 +135,26 @@ class ImageRecognitionFragment : Fragment() {
                     // navigate to the details page for the recognized product
                     val action = ImageRecognitionFragmentDirections.actionImageRecognitionFragmentToDetailsFragment(prod.id)
 
-//
                     findNavController().navigate(action)
                 }
-
             }
-            //tell no match
-
-//            if (recognizedProduct.productName == classes[maxPos]) {
-//                val action = ImageRecognitionFragmentDirections.actionImageRecognitionFragmentToDetailsFragment(recognizedProduct.id)
-//                findNavController().navigate(action)
-//            }
-            // Navigate to the product details page if the recognized product is found
-//            if (recognizedProduct.image == bitmap) {
-//                val action = ImageRecognitionDirections.actionImageRecognitionToDetailsFragment(recognizedProduct.productId)
-//                findNavController().navigate(action)
-//            }
 
             // Releases model resources if no longer used.
             model.close()
-            // Releases model resources if no longer used.
 
-            result.text = classes[maxPos]
-
+            // Display the confidence scores for each class
             var s = ""
             for (i in classes.indices) {
                 s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100)
             }
             confidence.text = s
 
-//            checkResult(productList, classes[maxPos])
-            // Releases model resources if no longer used.
-            model.close()
         } catch (e: IOException) {
-            // TODO Handle the exception
         }
     }
-//    fun checkResult(storeModels: List<StoreModel>, resultText: String) {
-//        for (storeModel in storeModels) {
-//            if (resultText.equals(storeModel.productName, ignoreCase = true)) {
-//                val action = ImageRecognitionFragmentDirections.actionImageRecognitionFragmentToDetailsFragment(storeModel.id)
-//                findNavController().navigate(action)
-//                break
-//            }
-//        }
-//    }
+
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 3) {

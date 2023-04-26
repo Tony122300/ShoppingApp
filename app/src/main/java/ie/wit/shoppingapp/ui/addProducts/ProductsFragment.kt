@@ -124,8 +124,6 @@ class ProductsFragment : Fragment() {
                 binding.price.setText("")
                 binding.barcode.setText("")
                 productsViewModel.addProduct(product)
-
-                // Reset the image to empty after adding the product
                 storeApp.image = Uri.EMPTY
             } else {
                 Toast.makeText(

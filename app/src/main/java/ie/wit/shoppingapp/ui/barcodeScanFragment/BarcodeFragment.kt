@@ -1,3 +1,4 @@
+//https://www.youtube.com/watch?v=YNDSnR0Xhps&t=1544s&ab_channel=DecconTech
 package ie.wit.shoppingapp.ui.barcodeScanFragment
 
 import android.Manifest

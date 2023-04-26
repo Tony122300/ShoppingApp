@@ -1,3 +1,5 @@
+//https://www.youtube.com/watch?v=jhGm4KDafKU&t=8s&ab_channel=IJApps
+
 package ie.wit.shoppingapp.ui.imageRecog
 
 import android.Manifest

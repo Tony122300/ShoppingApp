@@ -1,4 +1,7 @@
+//https://razorpay.com/docs/payments/payment-gateway/android-integration/standard/build-integration
+//https://www.youtube.com/watch?v=uDf21HIsSSU&t=198s&ab_channel=DevEasy
 package ie.wit.shoppingapp.ui.cart
+
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.razorpay.Checkout
+import com.razorpay.PaymentResultListener
 
 
 import ie.wit.shoppingapp.R
@@ -23,7 +27,7 @@ import org.json.JSONObject
 
 
 //cart
-class CartFragment : Fragment(){
+class CartFragment : Fragment(), PaymentResultListener {
 
     private lateinit var cartViewModel: CartViewModel
     private lateinit var products: List<StoreModel>
@@ -80,8 +84,8 @@ class CartFragment : Fragment(){
             options.put("amount",(totalPrice*100).toString())
 
             val prefill = JSONObject()
-            prefill.put("email","gaurav.kumar@example.com")
-            prefill.put("contact","9876543210")
+            prefill.put("email","")
+            prefill.put("contact","")
 
             options.put("prefill",prefill)
             checkOut.open(activity,options)
@@ -91,10 +95,12 @@ class CartFragment : Fragment(){
         }
     }
 
-    fun onPaymentSuccess(p0:String?){
+    override fun onPaymentSuccess(p0:String?){
         Toast.makeText(requireContext(),"successful $p0",Toast.LENGTH_LONG).show()
-        pay.visibility = View.GONE
-        success = view?.findViewById(R.id.success)!!
-        success?.visibility = View.VISIBLE
+
+    }
+
+    override fun onPaymentError(p0: Int, p1: String?) {
+        Toast.makeText(requireContext(),"Failed $p0",Toast.LENGTH_LONG).show()
     }
 }

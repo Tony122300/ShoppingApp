@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.adapter.ReportClickListener
@@ -24,7 +25,7 @@ import ie.wit.shoppingapp.main.StoreApp
 import ie.wit.shoppingapp.models.StoreModel
 import ie.wit.shoppingapp.ui.imageRecog.ImageRecognitionFragmentDirections
 
-class ListFragment : Fragment(), ReportClickListener {
+class ListFragment : Fragment(), ReportClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
     lateinit var store : StoreApp
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
@@ -35,7 +36,6 @@ class ListFragment : Fragment(), ReportClickListener {
         store = activity?.application as StoreApp
         setHasOptionsMenu(true)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,32 +49,45 @@ class ListFragment : Fragment(), ReportClickListener {
                 products ->
             products?.let { render(products) }
         })
-        val fab: FloatingActionButton = binding.fab
-        fab.setOnClickListener {
-            val action = ListFragmentDirections.actionListFragmentToProductsFragment()
-            findNavController().navigate(action)
+//        val button: Button = binding.button3
+//        button.setOnClickListener {
+//            val action2 = ListFragmentDirections.actionListFragmentToImageRecognitionFragment()
+//            findNavController().navigate(action2)
+//        }
+//
+//        val button4: Button = binding.button4
+//        button4.setOnClickListener {
+//            val action3 = ListFragmentDirections.actionListFragmentToBarcodeFragment()
+//            findNavController().navigate(action3)
+//        }
+//
+//        val button5: Button = binding.button5
+//        button5.setOnClickListener {
+//            val action4 = ListFragmentDirections.actionListFragmentToCheckOutFragment()
+//            findNavController().navigate(action4)
+//        }
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener(this)
 
-        }
-        val button: Button = binding.button3
-        button.setOnClickListener {
-            val action2 = ListFragmentDirections.actionListFragmentToImageRecognitionFragment()
-            findNavController().navigate(action2)
-        }
-
-        val button4: Button = binding.button4
-        button4.setOnClickListener {
-            val action3 = ListFragmentDirections.actionListFragmentToBarcodeFragment()
-            findNavController().navigate(action3)
-        }
-
-        val button5: Button = binding.button5
-        button5.setOnClickListener {
-            val action4 = ListFragmentDirections.actionListFragmentToCheckOutFragment()
-            findNavController().navigate(action4)
-        }
         return root
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.imageRecognitionFragment -> {
+                val action = ListFragmentDirections.actionListFragmentToImageRecognitionFragment()
+                findNavController().navigate(action)
+            }
+            R.id.barcodeFragment -> {
+                val action = ListFragmentDirections.actionListFragmentToBarcodeFragment()
+                findNavController().navigate(action)
+            }
+            R.id.CartFragment -> {
+                val action = ListFragmentDirections.actionListFragmentToCheckOutFragment()
+                findNavController().navigate(action)
+            }
+        }
+        return true
+    }
     private fun render(storeList: List<StoreModel>) {
         binding.recyclerView.adapter = StoreAdapter(storeList,this)
         if (storeList.isEmpty()) {
@@ -85,7 +98,6 @@ class ListFragment : Fragment(), ReportClickListener {
             binding.noProducts.visibility = View.GONE
         }
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val searchView = view.findViewById<SearchView>(R.id.searchView)
@@ -135,6 +147,4 @@ class ListFragment : Fragment(), ReportClickListener {
         return NavigationUI.onNavDestinationSelected(item,
             requireView().findNavController()) || super.onOptionsItemSelected(item)
     }
-
-
 }

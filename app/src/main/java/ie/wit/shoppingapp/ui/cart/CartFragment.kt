@@ -32,6 +32,7 @@ class CartFragment : Fragment(){
     lateinit var card: CardView
     lateinit var success: TextView
     lateinit var failed: TextView
+    private var totalPrice = 0.0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +50,7 @@ class CartFragment : Fragment(){
         cartRecyclerView.adapter = cartAdapter
 
         // Calculate the total price of all products in the cart
-        val totalPrice = products.fold(0.0) { acc, product ->
+        totalPrice = products.fold(0.0) { acc, product ->
             acc + product.price
         }
 
@@ -76,7 +77,7 @@ class CartFragment : Fragment(){
             options.put("image","image\",\"https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg\"")
             options.put("theme.color","#3399cc")
             options.put("currency","EUR")
-            options.put("amount","200")
+            options.put("amount",(totalPrice*100).toString())
 
             val prefill = JSONObject()
             prefill.put("email","gaurav.kumar@example.com")
@@ -96,7 +97,4 @@ class CartFragment : Fragment(){
         success = view?.findViewById(R.id.success)!!
         success?.visibility = View.VISIBLE
     }
-
-
-
 }

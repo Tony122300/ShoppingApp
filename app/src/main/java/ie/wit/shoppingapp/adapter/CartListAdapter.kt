@@ -61,7 +61,6 @@ class CartAdapter : ListAdapter<StoreModel, CartAdapter.CartViewHolder>(StoreMod
             val totalPrice = product.price * quantitySpinner.selectedItem.toString().toInt()
             productTotalPriceTextView.text = itemView.context.getString(R.string.price_format, totalPrice)
 
-            // Delete product on button click
 
         }
     }

@@ -15,7 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/register_toolbar"
-        android:layout_margin="16dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,10 +26,22 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/register_name"
+                android:id="@+id/register_firstname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name"
+                android:hint="@string/fname"
+                android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/register_secondname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sname"
+                android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/register_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/gender"
                 android:inputType="textPersonName" />
 
             <EditText
@@ -50,6 +65,19 @@
                 android:hint="@string/address_hint"
                 android:inputType="textPostalAddress" />
 
+            <EditText
+                android:id="@+id/register_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/age"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/registerDoB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/DoB"
+                android:inputType="textEmailAddress" />
             <Button
                 android:id="@+id/register_button"
                 android:layout_width="wrap_content"

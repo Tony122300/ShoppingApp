@@ -15,18 +15,3 @@ data class StoreModel(
     val asile: Int = 0,
     val producer: String = ""
 )
-
-
-//{
-//    @Exclude
-//    fun toMap(): Map<String, Any?> {
-//        return mapOf(
-//            "uid" to uid,
-//            "productName" to productName,
-//            "productDescription" to productDescription,
-//            "bestBeforeDate" to bestBeforeDate,
-//            "price" to price,
-//            "email" to email
-//        )
-//    }
-//}

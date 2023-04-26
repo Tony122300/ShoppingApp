@@ -30,20 +30,11 @@ class CartAdapter : ListAdapter<StoreModel, CartAdapter.CartViewHolder>(StoreMod
         val product = getItem(position)
         holder.bind(product)
     }
-    fun deleteItem(position: Int) {
-        // Get the item being deleted
-        val deletedItem = getItem(position)
 
-        // Remove the item from the adapter
-        currentList.toMutableList().removeAt(position)
-        notifyItemRemoved(position)
-
-    }
     inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val productNameTextView: TextView = itemView.findViewById(R.id.productNameTextView)
         private val productImageView: ImageView = itemView.findViewById(R.id.productImage)
         private val quantitySpinner: Spinner = itemView.findViewById(R.id.quantitySpinner)
-        private val deleteProductButton: ImageButton = itemView.findViewById(R.id.deleteProductButton)
         private val productTotalPriceTextView: TextView = itemView.findViewById(R.id.productTotalPriceTextView)
 
         fun bind(product: StoreModel) {
@@ -61,8 +52,6 @@ class CartAdapter : ListAdapter<StoreModel, CartAdapter.CartViewHolder>(StoreMod
             // Calculate and set total price
             val totalPrice = product.price * quantitySpinner.selectedItem.toString().toInt()
             productTotalPriceTextView.text = itemView.context.getString(R.string.price_format, totalPrice)
-
-
         }
     }
 }

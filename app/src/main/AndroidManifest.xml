@@ -34,7 +34,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-<!--        <activity android:name=".ui.auth.RegisterActivity" />-->
+       <activity android:name=".ui.auth.RegisterActivity" />
         <meta-data
             android:name="com.razorpay.Checkout"
             android:value="rzp_test_H2OYtXSJ3TZkKg"/>

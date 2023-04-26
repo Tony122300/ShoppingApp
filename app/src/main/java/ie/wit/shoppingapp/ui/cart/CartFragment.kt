@@ -32,17 +32,13 @@ class CartFragment : Fragment(), PaymentResultListener {
     private lateinit var cartViewModel: CartViewModel
     private lateinit var products: List<StoreModel>
     private lateinit var cartRecyclerView: RecyclerView
-    lateinit var pay: Button
-    lateinit var card: CardView
-    lateinit var success: TextView
-    lateinit var failed: TextView
+    lateinit var placeOrderButton: Button
     private var totalPrice = 0.0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
-        val placeOrderButton = view.findViewById<Button>(R.id.placeOrderButton)
         cartViewModel = ViewModelProvider(requireActivity()).get(CartViewModel::class.java)
         products = cartViewModel.getProductsInCart()
 
@@ -61,8 +57,8 @@ class CartFragment : Fragment(), PaymentResultListener {
         // Set the total price text view
         val totalPriceTextView = view.findViewById<TextView>(R.id.orderTotalTextView)
         totalPriceTextView.text = "Total Price: $totalPrice"
-        pay = view.findViewById(R.id.placeOrderButton)
-        pay.setOnClickListener {
+        placeOrderButton = view.findViewById(R.id.placeOrderButton)
+        placeOrderButton.setOnClickListener {
             payment()
         }
         // Display the products in the cart

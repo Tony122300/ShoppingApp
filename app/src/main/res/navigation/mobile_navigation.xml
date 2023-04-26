@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_ProductsFragment_to_imageRecognitionFragment"
             app:destination="@id/imageRecognitionFragment" />
+        <action
+            android:id="@+id/action_ProductsFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
 
     <fragment
@@ -46,6 +49,9 @@
         <action
             android:id="@+id/action_listFragment_to_barcodeFragment"
             app:destination="@id/barcodeFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -73,6 +79,9 @@
         <action
             android:id="@+id/action_checkOutFragment_to_ProductsFragment"
             app:destination="@id/ProductsFragment" />
+        <action
+            android:id="@+id/action_CartFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/imageRecognitionFragment"
@@ -99,5 +108,16 @@
         <action
             android:id="@+id/action_barcodeFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="ie.wit.shoppingapp.ui.user.UserFragment"
+        android:label="UserFragment" >
+        <action
+            android:id="@+id/action_userFragment_to_ProductsFragment"
+            app:destination="@id/ProductsFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_CartFragment"
+            app:destination="@id/CartFragment" />
     </fragment>
 </navigation>

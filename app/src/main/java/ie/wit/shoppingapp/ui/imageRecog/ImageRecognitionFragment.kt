@@ -89,7 +89,7 @@ class ImageRecognitionFragment : Fragment() {
         return view
     }
 
-    fun classifyImage(image: Bitmap) {
+    fun classifingImage(image: Bitmap) {
         try {
             val model = Model.newInstance(requireContext())
 
@@ -118,13 +118,13 @@ class ImageRecognitionFragment : Fragment() {
             val outputs = model.process(inputFeature0)
             val outputFeature0 = outputs.outputFeature0AsTensorBuffer
 
-            val confidences = outputFeature0.floatArray
+            val conf = outputFeature0.floatArray
             // find the index of the class with the biggest confidence.
             var maxPos = 0
             var maxConfidence = 0f
-            for (i in confidences.indices) {
-                if (confidences[i] > maxConfidence) {
-                    maxConfidence = confidences[i]
+            for (i in conf.indices) {
+                if (conf[i] > maxConfidence) {
+                    maxConfidence = conf[i]
                     maxPos = i
                 }
             }
@@ -147,7 +147,7 @@ class ImageRecognitionFragment : Fragment() {
             // Display the confidence scores for each class
             var s = ""
             for (i in classes.indices) {
-                s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100)
+                s += String.format("%s: %.1f%%\n", classes[i], conf[i] * 100)
             }
             confidence.text = s
 
@@ -165,7 +165,7 @@ class ImageRecognitionFragment : Fragment() {
                 var scaledImage = ThumbnailUtils.extractThumbnail(image, dimension, dimension)
                 imageView.setImageBitmap(scaledImage)
                 scaledImage = Bitmap.createScaledBitmap(scaledImage, imageSize, imageSize, false)
-                classifyImage(scaledImage)
+                classifingImage(scaledImage)
             } else if (requestCode == 1 && data != null) {
                 val dat = data.data
                 var image: Bitmap? = null
@@ -176,7 +176,7 @@ class ImageRecognitionFragment : Fragment() {
                 }
                 imageView.setImageBitmap(image)
                 image = Bitmap.createScaledBitmap(image!!, imageSize, imageSize, false)
-                classifyImage(image)
+                classifingImage(image)
             }
         }
         super.onActivityResult(requestCode, resultCode, data)

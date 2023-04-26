@@ -55,7 +55,10 @@ class Login : AppCompatActivity() {
         Timber.d("createAccount:$email")
         if (!validateForm()) { return }
 
-        loginRegisterViewModel.register(email,password)
+        val intent = Intent(this, RegisterActivity::class.java)
+        intent.putExtra("email", email)
+        intent.putExtra("password", password)
+        startActivity(intent)
     }
 
     private fun signIn(email: String, password: String) {

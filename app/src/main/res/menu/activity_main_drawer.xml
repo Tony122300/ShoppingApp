@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/ProductsFragment"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_add"
             android:title="@string/add" />
         <item
             android:id="@+id/listFragment"
@@ -14,7 +15,16 @@
             android:title="@string/list" />
         <item
             android:id="@+id/CartFragment"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_cart"
             android:title="@string/Cart" />
     </group>
+    <item android:title="Access Control">
+        <menu>
+            <item
+                android:id="@+id/signout"
+                android:icon="@android:drawable/ic_menu_revert"
+                android:onClick="signOut"
+                android:title="@string/sign_out" />
+        </menu>
+    </item>
 </menu>

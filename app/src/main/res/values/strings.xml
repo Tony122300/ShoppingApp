@@ -2,14 +2,14 @@
     <string name="app_name">Shopping App</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">Shopping App</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="Cart">Cart</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_gallery">List Products</string>
+    <string name="menu_slideshow">Cart</string>
     <string name="error">Connot upload Product</string>
 
     <string name="productName">Name of Product</string>
@@ -21,8 +21,41 @@
     <string name="list">List</string>
     <string name="add">Add</string>
     <string name="product_image">product_image</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="pricename">Price</string>
+    <string name="order_total_text">Total Price</string>
+    <string name="recognition">Image</string>
+    <string name="barcode">Barcode</string>
+    <string name="cart">Cart</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="price_format">$%.2f</string>
-
+    <string name="label_emailpassword">Email/Password Authentication</string>
+    <string name="desc_emailpassword">Use an email and password to authenticate with Firebase.</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_account">Create Account</string>
+    <string name="send_link">Send Link</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="verify_email">Verify Email</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="loading">Loading…</string>
+    <string name="signed_in">Signed In</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="token_null">Token: null</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="search">"Filter"</string>
+    <string name="auth_failed">Authentication failed</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+    <string name="firebase_user_management">Firebase User Management</string>
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="emailpassword_title_text">Please Login Below</string>
+    <string name="name">Tony</string>
+    <string name="email">tony@gmail.com</string>
+    <string name="password_hint">abcde</string>
+    <string name="address_hint">main street</string>
+    <string name="register_button_text">Register</string>
+    <string name="register_title">Profile registration</string>
+    <string name="asile">asile</string>
+    <string name="producer">Producer</string>
+    <string name="price">00.00</string>
+    <string name="category">Category</string>
 </resources>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/imageRecognitionFragment">
+    app:startDestination="@+id/ProductsFragment">
 
     <fragment
         android:id="@+id/ProductsFragment"
@@ -40,6 +40,12 @@
         <action
             android:id="@+id/action_listFragment_to_imageRecognitionFragment"
             app:destination="@id/imageRecognitionFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_imageRecognitionFragment2"
+            app:destination="@id/imageRecognitionFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_barcodeFragment"
+            app:destination="@id/barcodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -52,6 +58,9 @@
         <action
             android:id="@+id/action_detailsFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_barcodeFragment"
+            app:destination="@id/barcodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/CartFragment"
@@ -79,5 +88,16 @@
         <action
             android:id="@+id/action_imageRecognitionFragment_to_CartFragment"
             app:destination="@id/CartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/barcodeFragment"
+        android:name="ie.wit.shoppingapp.ui.barcodeScanFragment.BarcodeFragment"
+        android:label="BarcodeFragment" >
+        <action
+            android:id="@+id/action_barcodeFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_barcodeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>

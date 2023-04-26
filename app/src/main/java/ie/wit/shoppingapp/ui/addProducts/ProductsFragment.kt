@@ -19,8 +19,6 @@ import ie.wit.shoppingapp.R
 import ie.wit.shoppingapp.databinding.FragmentProductsBinding
 import ie.wit.shoppingapp.main.StoreApp
 import ie.wit.shoppingapp.models.StoreModel
-import timber.log.Timber.Forest.i
-import java.io.File
 import java.util.*
 
 class ProductsFragment : Fragment() {
@@ -93,7 +91,14 @@ class ProductsFragment : Fragment() {
         layout.addButtom.setOnClickListener{
             val name = binding.ProductName.text.toString()
             val description = binding.ProductDescription.text.toString()
-            val bestBeforeDate = binding.datePicker
+            val calendar = Calendar.getInstance().apply {
+                set(
+                    binding.datePicker.year,
+                    binding.datePicker.month,
+                    binding.datePicker.dayOfMonth
+                )
+            }
+            val bestBeforeDateInMillis = calendar.timeInMillis
             val priceStr = binding.price.text.toString()
             val price = if (priceStr.isNotEmpty()) priceStr.toDouble() else 0.0
             val barcode = binding.barcode.text.toString()
@@ -104,7 +109,7 @@ class ProductsFragment : Fragment() {
                 val product = StoreModel(
                     productName = name,
                     productDescription = description,
-                    bestBeforeDate = bestBeforeDate,
+                    bestBeforeDate = bestBeforeDateInMillis,
                     price = price,
                     image = storeApp.image, // Set the image for the product
                     barcode = barcode,
@@ -118,7 +123,7 @@ class ProductsFragment : Fragment() {
                 binding.ProductDescription.setText("")
                 binding.price.setText("")
                 binding.barcode.setText("")
-                productsViewModel.addProduct(product, store)
+                productsViewModel.addProduct(product)
 
                 // Reset the image to empty after adding the product
                 storeApp.image = Uri.EMPTY

@@ -25,13 +25,14 @@ fun generateRandomId(): Long {
     return Random().nextLong()
 }
 
-object StoreJSONStore : StoreStore {
-    private lateinit var context: Context
+object StoreJSONStore  : StoreStore {
+   private lateinit var context: Context
 
     var products = mutableListOf<StoreModel>()
 
-    fun initialize(context: Context) {
-        this.context = context
+   fun initialize(context: Context) {
+    //init{
+       this.context = context
         if (exists(context, JSON_FILE)) {
             deserialize()
         }
@@ -64,6 +65,7 @@ object StoreJSONStore : StoreStore {
     }
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(products, listType)
+       products
         write(context, JSON_FILE, jsonString)
     }
 

@@ -8,12 +8,14 @@ import timber.log.Timber
 
 class StoreApp: Application() {
     // lateinit var stores: StoreManager
-    lateinit var stores: StoreJSONStore
+    lateinit var stores: StoreStore
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
 //        stores = StoreManager
-        stores = StoreJSONStore
+      //  stores = StoreJSONStore(this.applicationContext)
+        StoreJSONStore.initialize(this.applicationContext)
+
         Timber.i("Store App started ")
     }
 }
